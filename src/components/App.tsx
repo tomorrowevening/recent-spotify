@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { authenticateSpotify, getRecentlyPlayedTracks } from './spotify';
 import Track from './Track';
+import { authenticateSpotify, getRecentlyPlayedTracks } from '../utils/spotify';
 
 export default function App() {
   const [token, setToken] = useState<string | null>(null);
@@ -12,13 +12,13 @@ export default function App() {
     const accessToken = hashParams.get('access_token');
 
     if (accessToken) {
+      setStatus('Logged in');
       setToken(accessToken);
     }
   }, []);
 
   const handleLogin = () => {
-    const redirect_uri = `${window.location.origin}/`;
-    authenticateSpotify(redirect_uri);
+    authenticateSpotify();
   };
 
   const handleFetchTracks = async () => {
