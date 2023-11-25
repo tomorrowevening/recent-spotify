@@ -16,7 +16,8 @@ export default function App() {
   }, []);
 
   const handleLogin = () => {
-    authenticateSpotify();
+    const redirect_uri = `${window.location.origin}/`;
+    authenticateSpotify(redirect_uri);
   };
 
   const handleFetchTracks = async () => {

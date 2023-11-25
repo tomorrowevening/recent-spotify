@@ -1,7 +1,6 @@
 import { SPOTIFY_ID } from './constants'
 
-export const authenticateSpotify = (): void => {
-  const redirect_uri = 'http://0.0.0.0:8080/';
+export const authenticateSpotify = (redirect_uri: string): void => {
   const authEndpoint = 'https://accounts.spotify.com/authorize';
   const scopes = 'user-read-recently-played';
   const redirectUri = encodeURIComponent(redirect_uri);
