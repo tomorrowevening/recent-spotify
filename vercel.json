@@ -1,6 +1,12 @@
 {
   "functions": {
-    "**/*": {
+    "app/**/*.js": {
+      "maxDuration": 10
+    },
+    "src/components/*.tsx": {
+      "maxDuration": 10
+    },
+    "src/utils/spotify.ts": {
       "maxDuration": 10
     }
   }
