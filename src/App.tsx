@@ -5,6 +5,7 @@ import Track from './Track';
 export default function App() {
   const [token, setToken] = useState<string | null>(null);
   const [recentlyPlayedTracks, setRecentlyPlayedTracks] = useState<any[]>([]);
+  const [status, setStatus] = useState('No tracks loaded')
 
   useEffect(() => {
     const hashParams = new URLSearchParams(window.location.hash.substr(1));
@@ -20,12 +21,15 @@ export default function App() {
   };
 
   const handleFetchTracks = async () => {
-    try {
-      const tracks = await getRecentlyPlayedTracks(token!);
-      setRecentlyPlayedTracks(tracks);
-    } catch (error) {
-      // @ts-ignore
-      console.error(error.message);
+    if (token !== null) {
+      getRecentlyPlayedTracks(token)
+        .then((tracks: any) => {
+          setRecentlyPlayedTracks(tracks.items);
+          setStatus('Loaded');
+        })
+        .catch(() => {
+          setStatus('Can\'t fetch recent tracks');
+        })
     }
   };
 
@@ -38,7 +42,7 @@ export default function App() {
 
   return (
     <div>
-      <h1>Spotify Recent Tracks</h1>
+      <h1>Spotify Recent Tracks: {status}</h1>
       {!token ? (
         <button onClick={handleLogin}>Login with Spotify</button>
       ) : (

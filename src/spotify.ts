@@ -11,18 +11,22 @@ export const authenticateSpotify = (): void => {
 
 export const getRecentlyPlayedTracks = async (token: string): Promise<any> => {
   const endpoint = 'https://api.spotify.com/v1/me/player/recently-played?limit=50';
-  const response = await fetch(endpoint, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+  return new Promise((resolve, reject) => {
+    fetch(endpoint, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((response: Response) => {
+      if (!response.ok) {
+        reject();
+        throw new Error('Failed to fetch recently played tracks');
+      }
+
+      response.json()
+        .then((data: any) => resolve(data))
+        .catch(() => { console.log('Error with JSON') });
+    }).catch(() => { console.log('Error loading recently played') });
   });
-
-  if (!response.ok) {
-    throw new Error('Failed to fetch recently played tracks');
-  }
-
-  const data = await response.json();
-  return data.items;
 };
 
 export const getTrackFeatures = async (token: string, trackID: string): Promise<any> => {
@@ -38,7 +42,9 @@ export const getTrackFeatures = async (token: string, trackID: string): Promise<
         throw new Error('Failed to fetch Track Features');
       }
 
-      response.json().then((data: any) => resolve(data));
-    })
+      response.json()
+        .then((data: any) => resolve(data))
+        .catch(() => { console.log('Error with JSON') });
+    }).catch(() => { console.log('Error loading Track Features') });
   })
 };
