@@ -10,7 +10,8 @@ export const authenticateSpotify = (): void => {
 };
 
 export const getRecentlyPlayedTracks = async (token: string): Promise<any> => {
-  const endpoint = 'https://api.spotify.com/v1/me/player/recently-played?limit=50';
+  // const endpoint = 'https://api.spotify.com/v1/me/player/recently-played?limit=50';
+  const endpoint = 'https://api.spotify.com/v1/me/player/recently-played?limit=10';
   return new Promise((resolve, reject) => {
     fetch(endpoint, {
       headers: {
