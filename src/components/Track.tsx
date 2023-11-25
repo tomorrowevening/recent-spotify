@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { getTrackFeatures } from './spotify';
+import { getTrackFeatures } from '../utils/spotify';
 
 export interface TrackProps {
   data: any
@@ -73,17 +73,17 @@ export default function Track(props: TrackProps) {
       {trackBtn} - {trackArtists}
       {loaded && (
         <ul className='features'>
-          <li>Danceability: {track.danceability}</li>
-          <li>Energy: {track.energy}</li>
+          <li>Danceability: {(track.danceability * 100).toFixed(2)}%</li>
+          <li>Energy: {(track.energy * 100).toFixed(2)}%</li>
           <li>Key: {track.key}</li>
           <li>Loudness: {track.loudness}</li>
           <li>Mode: {track.mode}</li>
-          <li>Speechiness: {track.speechiness}</li>
-          <li>Acousticness: {track.acousticness}</li>
-          <li>Instrumentalness: {track.instrumentalness}</li>
-          <li>Liveness: {track.liveness}</li>
-          <li>Valence: {track.valence}</li>
-          <li>Tempo: {track.tempo}</li>
+          <li>Speechiness: {(track.speechiness * 100).toFixed(2)}%</li>
+          <li>Acousticness: {(track.acousticness * 100).toFixed(2)}%</li>
+          <li>Instrumentalness: {(track.instrumentalness * 100).toFixed(2)}%</li>
+          <li>Liveness: {(track.liveness * 100).toFixed(2)}%</li>
+          <li>Valence: {(track.valence * 100).toFixed(2)}%</li>
+          <li>Tempo: {Math.round(track.tempo)}</li>
           <li>Duration: {formatMilliseconds(track.duration_ms)}</li>
           <li>Time Signature: {track.time_signature}</li>
         </ul>
